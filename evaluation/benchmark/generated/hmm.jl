@@ -2,6 +2,11 @@
 
 include("../hmm.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[79] = Set{Int}([])
+CTRL_DEPS[53] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     current::Int

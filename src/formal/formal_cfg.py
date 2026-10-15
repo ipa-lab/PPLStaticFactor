@@ -67,6 +67,7 @@ class JuliaExpression(Expression):
     def __repr__(self) -> str:
         return unparse(self.syntaxnode.sexpr)
     
+# TODO: check if subclassing to EmptyExpression is ok
 class EmptyJuliaExpression(JuliaExpression):
     def __init__(self) -> None:
         pass

@@ -2,7 +2,9 @@
 import pandas as pd
 
 
-df_ours = pd.read_csv("evaluation/paper_vi_results.csv", sep=",")
+# df_ours = pd.read_csv("evaluation/paper_vi_results.csv", sep=",")
+df_ours = pd.read_csv("evaluation/vi_results_alldeps.csv", sep=",")
+# df_ours = pd.read_csv("evaluation/vi_results_ctrldeps.csv", sep=",")
 df_ours.set_index("model", inplace=True)
 
 df_pyro = pd.read_csv("compare/pyro_bbvi/paper_vi_results.csv", sep=",")

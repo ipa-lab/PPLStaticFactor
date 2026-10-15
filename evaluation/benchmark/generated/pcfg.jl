@@ -2,6 +2,11 @@
 
 include("../pcfg.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[75] = Set{Int}([75])
+CTRL_DEPS[49] = Set{Int}([75])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     TERMINAL_SYMBOL::Int

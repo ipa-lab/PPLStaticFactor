@@ -40,7 +40,7 @@ def inject_state_rec(sexpr: list, state_var, var_names, node: SampleNode | Facto
         return [sexpr[0]] + [inject_state_rec(child, state_var, var_names, None) for child in sexpr[1:]]
     
 class FactorFunctionWriter():
-    def __init__(self, model: CFG, root_node: CFGNode, deps: Set[SampleNode|FactorNode|EndNode], direct_paths: bool, context: str) -> None:
+    def __init__(self, model: CFG, root_node: CFGNode, deps: Set[SampleNode|FactorNode] | Set[SampleNode|FactorNode|EndNode], direct_paths: bool, context: str) -> None:
         self.direct_paths = direct_paths
         assert context in ("visit", "resume")
         self.context = context
@@ -298,6 +298,9 @@ class FactorisationBuilder():
 
         _, model_graph_edges = get_graph(ir)
         self.model_graph_edges = model_graph_edges
+        
+        _, control_graph_edges = get_graph(ir, mode="control")
+        self.control_graph_edges = control_graph_edges
 
         self.out = ""
 
@@ -500,6 +503,12 @@ class FactorisationBuilder():
 
         self.out = "# this file is auto-generated\n\n"
         self.out += f"include(\"../{self.filename}\")\n\n"
+        
+        self.out += "CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()\n"
+        for samplenode in self.sample_nodes:
+            ctrl_deps = {str(y.id[5:]) for x, y in self.control_graph_edges if x == samplenode}
+            self.out += f"CTRL_DEPS[{samplenode.id[5:]}] = Set{{Int}}([" + ", ".join(ctrl_deps) + "])\n"
+        self.out += "\n\n"
 
         # self.out += unparse(self.model_function.syntaxnode.sexpr) + "\n\n"
 

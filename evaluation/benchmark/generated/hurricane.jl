@@ -2,6 +2,18 @@
 
 include("../hurricane.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[86] = Set{Int}([])
+CTRL_DEPS[102] = Set{Int}([])
+CTRL_DEPS[22] = Set{Int}([145, 129, 119, 60, 70, 161, 102, 86])
+CTRL_DEPS[60] = Set{Int}([])
+CTRL_DEPS[70] = Set{Int}([])
+CTRL_DEPS[161] = Set{Int}([])
+CTRL_DEPS[145] = Set{Int}([])
+CTRL_DEPS[119] = Set{Int}([])
+CTRL_DEPS[129] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     damage_0::Bool

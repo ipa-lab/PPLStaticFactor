@@ -2,6 +2,11 @@
 
 include("../linear_regression.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[48] = Set{Int}([])
+CTRL_DEPS[61] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     i::Int

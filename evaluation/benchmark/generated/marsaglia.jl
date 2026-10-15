@@ -2,6 +2,11 @@
 
 include("../marsaglia.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[48] = Set{Int}([48, 64])
+CTRL_DEPS[64] = Set{Int}([48, 64])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     i::Int

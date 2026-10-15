@@ -2,6 +2,15 @@
 
 include("../captcha.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[174] = Set{Int}([])
+CTRL_DEPS[120] = Set{Int}([])
+CTRL_DEPS[72] = Set{Int}([138, 156, 120, 174])
+CTRL_DEPS[84] = Set{Int}([])
+CTRL_DEPS[138] = Set{Int}([])
+CTRL_DEPS[156] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     N_letters::Int

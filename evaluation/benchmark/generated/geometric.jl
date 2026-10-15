@@ -2,6 +2,10 @@
 
 include("../geometric.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[41] = Set{Int}([41])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     b::Bool

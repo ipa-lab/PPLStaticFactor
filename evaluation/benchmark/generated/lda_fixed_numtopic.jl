@@ -2,6 +2,12 @@
 
 include("../lda_fixed_numtopic.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[131] = Set{Int}([])
+CTRL_DEPS[179] = Set{Int}([])
+CTRL_DEPS[71] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     K::Int

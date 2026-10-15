@@ -386,15 +386,17 @@ end
 mutable struct VIForwardFactorContext <: AbstractFactorVisitContext
     trace::Dict{String,SampleType}
     log_q::Dict{String,Float64}
-    elbo:: Float64
+    elbo::Float64
+    resample_address_node_id::Int
     function VIForwardFactorContext(trace::Dict{String,SampleType}, log_q::Dict{String,Float64})
-        return new(trace, log_q, 0.0)
+        return new(trace, log_q, 0.0, 0)
     end
 end
 
 function visit(ctx::VIForwardFactorContext, s::State, node_id::Int, address::String, distribution::Distribution; observed=nothing)
     value = ctx.trace[address]
     ctx.elbo += logpdf(distribution, value) - ctx.log_q[address]
+    # ctx.resample_address_node_id = node_id
     return value
 end
 
@@ -404,7 +406,16 @@ function score(ctx::VIForwardFactorContext, s::State, node_id::Int, address::Str
         return observed
     end
     value = ctx.trace[address]
-    ctx.elbo += logpdf(distribution, value) # - ctx.log_q[address]
+    ctx.elbo += logpdf(distribution, value)
+
+    # substract for all dependencies
+    ctx.elbo -= ctx.log_q[address]
+
+    # only substraction at control dependencies is needed for correctness, but above reduces variances further
+    # if node_id in CTRL_DEPS[ctx.resample_address_node_id]
+    #     ctx.elbo -= ctx.log_q[address]
+    # end
+    
     return value
 end
 

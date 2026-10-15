@@ -2,6 +2,13 @@
 
 include("../aircraft.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[126] = Set{Int}([])
+CTRL_DEPS[71] = Set{Int}([])
+CTRL_DEPS[22] = Set{Int}([126, 71, 89])
+CTRL_DEPS[89] = Set{Int}([126, 71, 89])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     blip::Float64

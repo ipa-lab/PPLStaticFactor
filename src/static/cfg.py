@@ -21,6 +21,14 @@ class Expression:
         raise NotImplementedError
     def get_free_variables(self) -> List[Variable]:
         raise NotImplementedError
+    
+class EmptyExpression(Expression):
+    def __eq__(self, value: object) -> bool:
+        return isinstance(value, EmptyExpression)
+    def __hash__(self) -> int:
+        return 0
+    def get_free_variables(self) -> List[Variable]:
+        return []
 
 class AssignTarget:
     def is_equal(self, variable: Variable) -> bool:

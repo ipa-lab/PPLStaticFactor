@@ -2,6 +2,11 @@
 
 include("../pedestrian.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[61] = Set{Int}([61])
+CTRL_DEPS[22] = Set{Int}([61])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     distance::Float64

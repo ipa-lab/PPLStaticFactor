@@ -2,6 +2,12 @@
 
 include("../urn.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[56] = Set{Int}([])
+CTRL_DEPS[25] = Set{Int}([56, 107])
+CTRL_DEPS[107] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     N::Int

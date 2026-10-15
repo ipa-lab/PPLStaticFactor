@@ -2,6 +2,14 @@
 
 include("../gmm_variable_numclust.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[70] = Set{Int}([])
+CTRL_DEPS[137] = Set{Int}([])
+CTRL_DEPS[186] = Set{Int}([])
+CTRL_DEPS[52] = Set{Int}([114, 137, 186, 211])
+CTRL_DEPS[114] = Set{Int}([])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     i::Int

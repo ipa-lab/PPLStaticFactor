@@ -1,14 +1,14 @@
 
 from collections import deque
 from .ir import * 
-from typing import Deque, Tuple, List
+from typing import Deque, Tuple, List, Literal
 
 DEBUG_GRAPH = False
-def get_graph(program_ir: PPL_IR):
+def get_graph(program_ir: PPL_IR, mode: Literal["all", "control"] = "all"):
 
     random_stmts = program_ir.get_sample_nodes() + program_ir.get_factor_nodes()
 
-    edges = []
+    edges: List[Tuple[SampleNode, SampleNode | FactorNode]] = []
 
     for r in random_stmts:
         if DEBUG_GRAPH: print(r)
@@ -17,9 +17,13 @@ def get_graph(program_ir: PPL_IR):
         queue: Deque[Tuple[CFGNode,Expression]] = deque()
         if isinstance(r, SampleNode):
             queue.append((r, r.get_address_expr()))
-            queue.append((r, r.get_distribution_expr()))
+            if mode != "control":
+                queue.append((r, r.get_distribution_expr()))
         else:
-            queue.append((r, r.get_factor_expr()))
+            if mode != "control":
+                queue.append((r, r.get_factor_expr()))
+            else:
+                queue.append((r, EmptyExpression()))
 
         while len(queue) > 0:
             # get next node, FIFO

@@ -2,6 +2,12 @@
 
 include("../dirichlet_process.jl")
 
+CTRL_DEPS::Dict{Int,Set{Int}} = Dict{Int,Set{Int}}()
+CTRL_DEPS[105] = Set{Int}([])
+CTRL_DEPS[160] = Set{Int}([])
+CTRL_DEPS[89] = Set{Int}([160, 190, 89, 105])
+
+
 mutable struct State <: AbstractState
     node_id:: Int
     alpha::Float64
