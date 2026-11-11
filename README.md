@@ -2,7 +2,7 @@
 
 A static provenance analysis engine and automated program slicer (Julia) based on formal operational semantics for universal probabilistic programs with unbounded control flow and dynamic addressing. The system automatically extracts dependency-optimized sub-programs directly from source CFGs to accelerate posterior inference. Formally verified and demonstrated to deliver up to 10x speedups in Metropolis-Hastings/SMC execution along with substantial variance reduction in Black-Box Variational Inference.
 
-Cite:
+Cite [OOPSLA2026 paper](https://doi.org/10.1145/3798223):
 ```bibtex
 @article{boeck2026static,
   title={Static Factorisation of Probabilistic Programs With User-Labelled Sample Statements and While Loops},
